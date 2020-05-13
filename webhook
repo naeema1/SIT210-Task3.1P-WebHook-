@@ -1,0 +1,32 @@
+// This #include statement was automatically added by the Particle IDE.
+
+#include "Adafruit_DHT.h"
+
+// Example testing sketch for various DHT humidity/temperature sensors
+// Written by ladyada, public domain
+
+#define DHTPIN 2     // what pin we're connected to
+
+// Uncomment whatever type you're using!
+//#define DHTTYPE DHT11		// DHT 11 
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+
+int led = D7;  // The on-board LED
+
+void setup() {
+  pinMode(led, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(led, HIGH);   // Turn ON the LED
+  
+  float t = dht.getTempCelcius();
+
+  String temp = String(t);
+  Particle.publish("Temp", temp, PRIVATE);
+  delay(20000);               // Wait for 30 seconds
+
+  digitalWrite(led, LOW);    // Turn OFF the LED
+  delay(20000);               // Wait for 30 seconds
+}
